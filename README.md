@@ -2,7 +2,7 @@
 
 Датасет https://archive.ics.uci.edu/dataset/73/mushroom
 
-## Запуск скриптов через uv:
+## Запуск скриптов с помощью uv:
 
 1. Установочный скрипт через curl:
 ```
@@ -28,7 +28,3 @@ yet-another-package — названия пакетов
 
 CONSTANT — константы
 
-## Запуск скриптов через uv
-```
-uv run cases/classification/main.py
-```

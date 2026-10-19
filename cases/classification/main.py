@@ -33,6 +33,7 @@ dataset_csv.to_csv(filePath_csv1, index = False)
 # Предобработка данных
 
 data = pd.read_csv(filePath_csv1, header=None)
+
 for i in data.columns:
     column = data.iloc[:, i].unique()
     print(column)
@@ -42,3 +43,13 @@ for col in data.columns:
     if len(data[col].unique()) == 1:
         data = data.drop(labels = col, axis = 1)
 
+print('\nпоиск пропущенных значений')
+for col in data.columns:
+    if '?' in data[col].unique():
+        print(col, data[col].unique())
+        print('\nподсчет пропущенных значений в ячейках таблицы')
+        print(len(data[col][data[col] == '?']))
+
+
+# Обработка пропущенных значений
+print('')
