@@ -1,5 +1,6 @@
 from pathlib import Path
 import pandas as pd
+import numpy as np
 
 '''
 Цель: изучить особенности предварительной обработки исходных данных,
@@ -26,13 +27,13 @@ for atr in file_text:
     name = name[atr.find('.') + 2 :]
     attributes_names.append(name)
 
-dataset_csv = pd.read_csv(dataset, sep=",", header=None)
+dataset_csv = pd.read_csv(dataset, sep=",")
 dataset_csv.columns = attributes_names
 dataset_csv.to_csv(filePath_csv1, index = False)
 
 # Предобработка данных
 
-data = pd.read_csv(filePath_csv1, header=None)
+data = pd.read_csv(filePath_csv1)
 
 for i in data.columns:
     column = data.iloc[:, i].unique()
@@ -50,6 +51,30 @@ for col in data.columns:
         print('\nподсчет пропущенных значений в ячейках таблицы')
         print(len(data[col][data[col] == '?']))
 
-
 # Обработка пропущенных значений
-print('')
+print('Удаление строк с ячейками = ?')
+data = data[data['stalk-root'] != '?']
+
+print('Удаление столбца')
+data = data.drop(labels = 'stalk-root', axis = 1)
+del data['stalk-root']
+
+print('Новое уникальное значение')
+data['stalk-root'][data['stalk-root'] == '?'] = np.nan
+data['stalk-root'] = data['stalk-root'].fillna(value = 0)
+print(len(data['stalk-root'][data['stalk-root'].isna()]))
+
+print('Метод прямого заполнения')
+data['stalk-root'][data['stalk-root'] == '?'] = np.nan
+data['stalk-root'] = data['stalk-root'].fillna(method = 'ffill')
+
+print('Метод обратного заполнения')
+data['stalk-root'][data['stalk-root'] == '?'] = np.nan
+data['stalk-root'] = data['stalk-root'].fillna(method = 'bfill')
+
+print('Заменим символы ? на 0:')
+data['stalk-root'][df['stalk-root'] == '?'] = np.nan
+print(data['stalk-root'].unique())
+
+filePath_csv2 = PROJECT_ROOT / 'mushroom' / 'agaricus-lepiota2.csv'
+data.to_csv(filePath_csv2, index=False)
