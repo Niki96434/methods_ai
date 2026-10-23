@@ -13,7 +13,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 uv sync
 ```
-3. Запуск скриптов (из корня проекта):
+3. Запуск скриптов (из директории cases/**/*):
 ```
 uv run cases/**/*.py
 ```

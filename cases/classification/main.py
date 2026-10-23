@@ -10,12 +10,9 @@ from sklearn import preprocessing
 Набор данных включает 8124 наблюдений по 22 показателям.
 '''
 
-BASE_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = BASE_DIR.parent.parent
-
-indexes = BASE_DIR / 'attribute_info.txt'
-dataset = PROJECT_ROOT / 'mushroom' / 'agaricus-lepiota.csv'
-filePath_csv1 = PROJECT_ROOT / 'mushroom' / 'agaricus-lepiota1.csv'
+indexes = './mushroom/attribute_info.txt'
+dataset = './mushroom/agaricus-lepiota.csv'
+filePath_csv1 = './mushroom/agaricus-lepiota1.csv'
 
 with open(indexes, 'r', encoding='utf-8') as f:
     file_text = []
@@ -69,7 +66,7 @@ data.loc[data['stalk-root'] == '?', 'stalk-root'] = np.nan
 data['stalk-root'] = data['stalk-root'].fillna(value = '0')
 print('Уникальные значения stalk-root после замены:', data['stalk-root'].unique())
 
-filePath_csv2 = PROJECT_ROOT / 'mushroom' / 'agaricus-lepiota2.csv'
+filePath_csv2 = './mushroom/agaricus-lepiota2.csv'
 data.to_csv(filePath_csv2, index=False)
 
 print('Преобразование качественных данных в количественные')
@@ -94,7 +91,7 @@ print('\nУникальные значения столбцов:')
 for col in data.columns:
     print(col, data[col].unique(), df_transform[col].unique())
 
-filePath_csv3 = PROJECT_ROOT / 'mushroom' / 'agaricus-lepiota3.csv'
+filePath_csv3 = './mushroom/agaricus-lepiota3.csv'
 df_transform.to_csv(filePath_csv3, index=False)
 
 
